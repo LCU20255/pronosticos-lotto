@@ -6,7 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # We will read this from the `.env` file!
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyC04e1K0eF7YvkgWISEduTSSSHbhRoi35g")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    print("WARNING: GEMINI_API_KEY not found in environment variables.")
 
 def get_ai_prediction(analyst_name, hot_numbers, past_animals, play_type, target_lottery, dream_keyword, todays_results):
     """
@@ -104,7 +107,7 @@ def get_ai_prediction(analyst_name, hot_numbers, past_animals, play_type, target
     Emite el JSON validado ahora.
     """
 
-    url = "https://generativelanguage.googleapis.com/v1alpha/models/gemini-3-flash-preview:generateContent"
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
     
     headers = {
         "Content-Type": "application/json",
