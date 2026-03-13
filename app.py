@@ -1,4 +1,6 @@
 import os
+import json
+from datetime import datetime
 from flask import Flask, render_template, request, jsonify
 import random
 import scraper
@@ -8,6 +10,14 @@ import ai_service
 base_dir = os.path.abspath(os.path.dirname(__file__))
 template_dir = os.path.join(base_dir, 'templates')
 static_dir = os.path.join(base_dir, 'static')
+
+print(f"--- RENDER DEBUG ---")
+print(f"Base Dir: {base_dir}")
+print(f"Template Dir: {template_dir} (Exists: {os.path.exists(template_dir)})")
+if os.path.exists(template_dir):
+    print(f"Files in templates: {os.listdir(template_dir)}")
+print(f"Static Dir: {static_dir} (Exists: {os.path.exists(static_dir)})")
+print(f"--------------------")
 
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
