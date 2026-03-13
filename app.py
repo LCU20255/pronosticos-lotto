@@ -1,9 +1,15 @@
+import os
 from flask import Flask, render_template, request, jsonify
 import random
 import scraper
 import ai_service
 
-app = Flask(__name__)
+# Define absolute paths for templates and static files to ensure production compatibility
+base_dir = os.path.abspath(os.path.dirname(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+static_dir = os.path.join(base_dir, 'static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # Basic dictionary of animals mapping for Lotto Activo
 ANIMALS = {
