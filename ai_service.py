@@ -107,7 +107,7 @@ def get_ai_prediction(analyst_name, hot_numbers, past_animals, play_type, target
     Emite el JSON validado ahora.
     """
 
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
     
     headers = {
         "Content-Type": "application/json",
