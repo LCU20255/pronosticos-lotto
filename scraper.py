@@ -18,7 +18,7 @@ def scrape_lottery(name, slug):
     
     results = []
     try:
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=15)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
         
@@ -60,6 +60,40 @@ def get_today_results():
             final_data[name] = results
             
     return final_data
+
+def scrape_internet_consensus():
+    """Scrapes DuckDuckGo HTML Lite for 'datos lotto activo hoy' and returns the hottest animals"""
+    url = "https://html.duckduckgo.com/html/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+    data = {"q": "datos de lotto activo hoy pronosticos animalitos"}
+    
+    try:
+        response = requests.post(url, headers=headers, data=data, timeout=15)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        snippets = soup.find_all('a', class_='result__snippet')
+        full_text = " ".join([s.text for s in snippets]).lower()
+        
+        animal_counts = {}
+        animals_list = ["delfín", "ballena", "carnero", "toro", "ciempiés", "alacrán", "león", "rana", "perico", "ratón", "águila", "tigre", "gato", "caballo", "mono", "paloma", "zorro", "oso", "pavo", "burro", "chivo", "cochino", "gallo", "camello", "cebra", "iguana", "gallina", "vaca", "perro", "zamuro", "elefante", "caimán", "lapa", "ardilla", "pescado", "venado", "jirafa", "culebra"]
+        
+        for a in animals_list:
+            count = full_text.count(a)
+            a_no_accents = a.replace('í', 'i').replace('á', 'a').replace('é', 'e').replace('ó', 'o').replace('ú', 'u')
+            if a != a_no_accents:
+                count += full_text.count(a_no_accents)
+            if count > 0:
+                animal_counts[a] = count
+                
+        sorted_animals = sorted(animal_counts.items(), key=lambda item: item[1], reverse=True)
+        return [f"{a.capitalize()} (Menciones: {c})" for a, c in sorted_animals[:5]]
+    except Exception as e:
+        print(f"Error scraping consensus: {e}")
+        return []
 
 if __name__ == "__main__":
     print(json.dumps(get_today_results(), indent=2))

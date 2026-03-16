@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotto Activo Pro | Analytics Dashboard</title>
+    <title>Lotto-Pronosticos | Dashboard</title>
     <!-- Tailwind CSS -->
     <!-- Flatpickr Datepicker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -12,31 +12,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: 'class', // Disable forced dark mode from tailwind defaults
             theme: {
                 extend: {
                     colors: {
-                        dark: {
-                            900: '#070709',
-                            800: '#0e0e12',
-                            700: '#16161c',
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
                         },
                         brand: {
-                            prime: '#d4af37', // Gold 
-                            glow: '#f3e5ab',
-                            accent: '#ffffff',
-                        }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'blob': 'blob 7s infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            prime: '#4f46e5', // Indigo 600
                         }
                     }
                 }
@@ -45,87 +33,91 @@
     </script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tema y Estilos Personales -->
+    <!-- Tema y Estilos Elegantes -->
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
 <body
-    class="bg-gray-50 text-gray-800 min-h-screen flex flex-col font-sans selection:bg-brand-prime selection:text-white">
+    class="bg-slate-50 text-slate-900 min-h-screen flex flex-col selection:bg-brand-prime selection:text-white relative">
 
-    <!-- Background Effects -->
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div
-            class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-prime/10 rounded-full blur-[120px] mix-blend-screen animate-blob">
-        </div>
-        <div
-            class="absolute top-[20%] right-[-10%] w-[30%] h-[40%] bg-white/5 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000">
-        </div>
-        <div
-            class="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] bg-brand-prime/5 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-4000">
-        </div>
-    </div>
-
-    <!-- Top Navigation Strip -->
-    <nav class="relative z-10 w-full border-b border-gray-200 bg-white/90 backdrop-blur-xl shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Minimalist Header -->
+    <nav class="relative z-10 w-full border-b border-slate-200 bg-white/80 backdrop-blur-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-prime to-yellow-600 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                        <i class="fa-solid fa-chart-line text-white"></i>
+                        class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-sm">
+                        <i class="fa-solid fa-shapes text-sm"></i>
                     </div>
-                    <span class="text-xl font-bold tracking-wide text-gray-900">LOTTO - ANY <span
-                            class="text-brand-prime font-black">AI</span></span>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">Lotto<span
+                            class="text-slate-500 font-medium">Pronosticos</span></span>
                 </div>
                 <!-- Status Badge -->
-                <div
-                    class="flex items-center gap-2 px-3 py-1 rounded-full bg-brand-prime/10 border border-brand-prime/20">
-                    <div class="w-2 h-2 rounded-full bg-brand-prime animate-pulse"></div>
-                    <span class="text-xs text-brand-prime font-bold tracking-wider">SISTEMAS EN LINEA</span>
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 mr-1"></div>
+                    <span class="text-[0.65rem] text-slate-600 font-bold tracking-widest uppercase">Sistemas
+                        funcionando</span>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="relative z-10 flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- Main Application Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main
+        class="relative z-10 flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full animate-slide-up flex flex-col gap-8">
 
-            <!-- LEFT COLUMN: Controls & Input (Col span 4) -->
-            <div class="lg:col-span-4 flex flex-col gap-6">
+        <!-- Welcome / Title Area -->
+        <div class="text-center max-w-2xl mx-auto mb-4">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Pronósticos</h1>
+            <p class="text-slate-500 text-sm sm:text-base">Nuestra IA procesa los resultados matemáticos y
+                probabilísticos para maximizar tus aciertos.</p>
+        </div>
 
-                <!-- MAIN CONTROL CONSOLE -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-md relative overflow-hidden group">
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 bg-brand-prime/10 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover:scale-110">
+        <!-- Main Application Layout (Stacked rather than wide split) -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start w-full">
+
+            <!-- LEFT COLUMN: The Input Flow (Now taking more center stage) -->
+            <div class="w-full lg:w-5/12 flex flex-col gap-6">
+
+                <!-- MAIN CONTROL CONSOLE (Clean Card) -->
+                <div class="card-elegant p-6 sm:p-8">
+
+                    <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            Parámetros
+                        </h2>
+                        <!-- Boton Live Feed Movido Aquí, pequeño y sutil -->
+                        <button id="btn-open-feed-modal"
+                            class="text-xs text-brand-prime font-semibold hover:text-slate-900 transition-colors flex items-center gap-1 group">
+                            Resultados en vivo <i
+                                class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
                     </div>
 
-                    <h2 class="text-xl font-black mb-6 flex items-center gap-2 text-gray-900">
-                        <i class="fa-solid fa-terminal text-brand-prime"></i> Parámetros de Análisis
-                    </h2>
+                    <div class="space-y-5">
 
-                    <div class="space-y-4">
-
-
+                        <!-- Date Input -->
                         <div>
-                            <label class="block text-xs text-brand-prime font-bold mb-1 ml-1">Fecha Base
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5 ml-1">Fecha Base
                                 (Pirámide)</label>
                             <div class="relative">
                                 <i
-                                    class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 z-10 pointer-events-none"></i>
-                                <input type="text" id="pyramid-input" placeholder="Selecciona una fecha..."
-                                    class="w-full bg-gray-50 border border-brand-prime/30 text-gray-900 rounded-lg pl-10 pr-4 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-sm font-mono cursor-pointer shadow-sm placeholder-gray-400"
+                                    class="fa-regular fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none"></i>
+                                <input type="text" id="pyramid-input" placeholder="Seleccione la fecha..."
+                                    class="w-full rounded-xl pl-11 pr-4 py-3 outline-none text-sm cursor-pointer"
                                     readonly>
                             </div>
                         </div>
 
+                        <!-- Sequence Sequence -->
                         <div>
-                            <label class="block text-xs text-gray-600 mb-1 ml-1">Secuencia de Salida Hoy</label>
-                            <div class="relative flex gap-2">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5 ml-1">Secuencia de Salida
+                                (Resultados día anterior)</label>
+                            <div class="relative flex flex-col sm:flex-row gap-2">
                                 <!-- Time Selector -->
-                                <div class="relative w-1/3">
+                                <div class="relative w-full sm:w-2/5">
                                     <select id="animal-time-select"
-                                        class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-lg px-2 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-xs appearance-none cursor-pointer">
+                                        class="w-full rounded-xl px-3 py-3 outline-none text-xs appearance-none cursor-pointer">
                                         <option value="08:00 AM">08:00 AM</option>
                                         <option value="09:00 AM">09:00 AM</option>
                                         <option value="10:00 AM">10:00 AM</option>
@@ -141,69 +133,75 @@
                                     </select>
                                 </div>
                                 <!-- Animal Selector -->
-                                <div class="relative flex-grow">
+                                <div class="relative flex-grow flex gap-2">
                                     <select id="animal-sequence-select"
-                                        class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-lg pl-3 pr-4 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-sm appearance-none cursor-pointer">
+                                        class="w-full rounded-xl pl-3 pr-4 py-3 outline-none text-sm appearance-none cursor-pointer">
                                         <option value="" disabled selected>Animal...</option>
                                         {% for number, name in animals.items() %}
                                         <option value="{{ name }}">{{ number }} - {{ name }}</option>
                                         {% endfor %}
                                     </select>
+                                    <button id="btn-add-animal"
+                                        class="bg-slate-100 hover:bg-slate-200 text-slate-700 w-12 rounded-xl border border-slate-200 transition-all flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
-                                <button id="btn-add-animal"
-                                    class="bg-white hover:bg-brand-prime hover:text-white text-brand-prime px-4 rounded-lg border border-brand-prime transition-colors"><i
-                                        class="fa-solid fa-plus"></i></button>
                             </div>
                             <!-- Container for added tags -->
-                            <div id="sequence-tags-container" class="flex flex-wrap gap-2 mt-2 empty:hidden"></div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs text-brand-prime font-bold mb-1 ml-1">Modalidad de Analisis
-                                (Jugada)</label>
-                            <div class="relative">
-                                <i
-                                    class="fa-solid fa-crosshairs absolute left-3 top-1/2 -translate-y-1/2 text-brand-prime"></i>
-                                <select id="play-type-select"
-                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-lg pl-10 pr-4 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-sm appearance-none cursor-pointer font-bold">
-                                    <option value="Sencilla" selected>Sencilla (1 Animal Fijo)</option>
-                                    <option value="Tripleta">Tripleta (3 Animales)</option>
-                                    <option value="Quiniela">Quiniela (6 Aciertos / 3 Loterías)</option>
-                                </select>
+                            <div id="sequence-tags-container" class="flex flex-wrap gap-2 mt-3 empty:hidden text-xs">
                             </div>
                         </div>
 
-                        <!-- Lotería Objetivo (Dynamic) -->
-                        <div id="lottery-target-container">
-                            <label class="block text-xs text-brand-prime font-bold mb-1 ml-1">Lotería Objetivo</label>
-                            <div class="relative">
-                                <i
-                                    class="fa-solid fa-bullseye absolute left-3 top-1/2 -translate-y-1/2 text-brand-prime"></i>
-                                <select id="lottery-target-select"
-                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-lg pl-10 pr-4 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-sm appearance-none cursor-pointer font-bold">
-                                    <option value="Lotto Activo" selected>Lotto Activo</option>
-                                    <option value="La Granjita">La Granjita</option>
-                                    <option value="Ruleta Activa">Ruleta Activa</option>
-                                </select>
+                        <!-- Grid for Split Selects -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Play Type -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5 ml-1">Tipo de
+                                    juego</label>
+                                <div class="relative">
+                                    <i
+                                        class="fa-solid fa-crosshairs absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+                                    <select id="play-type-select"
+                                        class="w-full rounded-xl pl-9 pr-4 py-2.5 outline-none text-sm appearance-none cursor-pointer font-medium">
+                                        <option value="Sencilla" selected>Sencilla (Fijo)</option>
+                                        <option value="Tripleta">Tripleta (3)</option>
+                                        <option value="Quiniela">Quiniela</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Lotería Objetivo (Dynamic) -->
+                            <div id="lottery-target-container">
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5 ml-1">Tipo
+                                    de Lotería</label>
+                                <div class="relative">
+                                    <i
+                                        class="fa-solid fa-bullseye absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
+                                    <select id="lottery-target-select"
+                                        class="w-full rounded-xl pl-9 pr-4 py-2.5 outline-none text-sm appearance-none cursor-pointer font-medium">
+                                        <option value="Lotto Activo" selected>Lotto Activo</option>
+                                        <option value="La Granjita">La Granjita</option>
+                                        <option value="Ruleta Activa">Ruleta Activa</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Dream Interpreter -->
                         <div>
-                            <label class="block text-xs text-gray-600 mb-1 ml-1">Contexto Onírico (Sueño)</label>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5 ml-1">Contexto de los
+                                sueños (Opcional)</label>
                             <div class="relative">
                                 <i
-                                    class="fa-solid fa-cloud-moon absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                                <input type="text" id="dream-input" placeholder="Opcional. Ej: agua, perro"
-                                    class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-lg pl-10 pr-4 py-2.5 focus:border-brand-prime focus:ring-1 focus:ring-brand-prime outline-none transition-all text-sm placeholder-gray-400">
+                                    class="fa-solid fa-cloud absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                                <input type="text" id="dream-input" placeholder="Ej: agua, volar..."
+                                    class="w-full rounded-xl pl-11 pr-4 py-3 outline-none text-sm">
                             </div>
                         </div>
 
                         <button id="btn-generate-ai"
-                            class="w-full mt-2 relative inline-flex items-center justify-center px-8 py-3.5 font-bold text-dark-900 bg-gradient-to-r from-brand-prime to-brand-glow rounded-xl overflow-hidden hover:from-white hover:to-brand-glow transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] group">
-                            <span
-                                class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-20"></span>
-                            <i class="fa-solid fa-microchip mr-2 animate-pulse"></i>
-                            <span id="btn-ai-text">Iniciar Análisis</span>
+                            class="w-full mt-2 flex items-center justify-center px-8 py-4 rounded-xl outline-none text-[0.9rem]">
+                            <span id="btn-ai-text">Generar Pronóstico</span>
                         </button>
 
                         <!-- Pyramid Hidden Result for internal Context -->
@@ -214,103 +212,102 @@
                     </div>
                 </div>
 
-                <!-- Ver Live Feed Boton -->
-                <button id="btn-open-feed-modal"
-                    class="w-full bg-white border border-gray-200 rounded-2xl p-4 shadow-md flex items-center justify-between group hover:border-brand-prime hover:shadow-lg transition-all text-left">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-brand-prime/10 flex items-center justify-center text-brand-prime group-hover:bg-brand-prime group-hover:text-white transition-colors shadow-inner">
-                            <i class="fa-solid fa-satellite-dish"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-gray-900">Resultados del Día</h3>
-                            <p class="text-xs text-brand-prime mt-0.5 font-medium">Abrir Panel En Vivo</p>
-                        </div>
-                    </div>
-                    <i
-                        class="fa-solid fa-arrow-up-right-from-square text-gray-300 group-hover:text-brand-prime transition-colors"></i>
-                </button>
-            </div> <!-- Fin de lg:col-span-4 -->
-
-            <!-- Right Main Panel: AI Engine Output -->
-            <div class="lg:col-span-8 flex flex-col gap-6">
-
-                <!-- AI Output Dashboard -->
-                <div id="ai-dashboard"
-                    class="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden flex flex-col min-h-[500px] relative">
-
-                    <!-- Idle State -->
-                    <div id="ai-idle-state"
-                        class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-gray-50/90 z-10 transition-opacity duration-500">
-                        <div
-                            class="w-24 h-24 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-6 shadow-sm relative">
-                            <i class="fa-solid fa-brain text-4xl text-gray-300"></i>
-                            <div
-                                class="absolute inset-0 border-t-2 border-brand-prime rounded-full animate-[spin_3s_linear_infinite] opacity-50">
-                            </div>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2 tracking-wide">Esperando Información</h3>
-                        <p class="text-gray-600 max-w-md">Ingresa la matriz de datos en el panel izquierdo si quieres
-                            analizar un día anterior. De lo contrario solo presiona
-                        <p>Iniciar Análisis</p> para tomar los resultados en vivo</p>
-                    </div>
-
-                    <!-- Active State Header -->
-                    <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white hidden flex-col items-start"
-                        id="ai-output-header">
-                        <div class="flex items-center gap-3 w-full justify-between mb-4">
-                            <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles text-brand-prime"></i>
-                                Reporte <span id="ui-play-type" class="text-gray-900">Sencilla</span>
-                            </h2>
-                            <span
-                                class="text-xs font-mono text-brand-prime bg-brand-prime/10 px-2 py-1 rounded border border-brand-prime/20">STATUS:
-                                COMPLETE</span>
-                        </div>
-
-                        <!-- Dynamic Prediction Cards Container -->
-                        <div id="ai-dynamic-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                            <!-- Filled by JS based on Play Type -->
-                        </div>
-                    </div>
-
-                    <!-- Analysis Text Room -->
-                    <div class="p-6 flex-grow flex flex-col bg-white hidden" id="ai-output-body">
-                        <h3 class="text-xs font-bold text-brand-prime tracking-widest uppercase mb-4 flex items-center">
-                            <i class="fa-solid fa-code-branch mr-2"></i> Razonamiento Analítico
+                <!-- Standalone Simulator Widget (Small, Clean) -->
+                <div class="card-elegant p-5 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm"><i
+                                class="fa-solid fa-dice text-slate-400 mr-2"></i> Generador aleatorio de tripletas
                         </h3>
-                        <div
-                            class="relative bg-gray-50 border border-gray-200 p-5 rounded-xl font-mono text-sm leading-relaxed text-gray-700 shadow-inner flex-grow">
-                            <!-- Terminal decor -->
-                            <div class="absolute top-3 right-3 flex gap-1.5 opacity-50">
-                                <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                            </div>
-                            <div id="ai-reasoning-text" class="mt-3">
-                                <!-- Typing text goes here -->
-                            </div>
-                            <span class="animate-pulse inline-block ml-1 w-2 h-4 bg-brand-prime align-middle"
-                                id="ai-cursor"></span>
-                        </div>
+                        <p class="text-[0.65rem] text-slate-500 mt-0.5">Generación Matemática Pura</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div id="random-result" class="flex gap-2"></div>
+                        <button id="btn-random-mini"
+                            class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:border-slate-300 text-slate-600 transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-right text-xs"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Standalone Simulator Widget (Small) -->
-                <div
-                    class="bg-white rounded-2xl p-4 border border-gray-200 shadow-md flex items-center justify-between">
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-sm"><i
-                                class="fa-solid fa-dice text-brand-prime mr-2"></i> Generador Rápido (Tripleta Random)
-                        </h3>
-                        <p class="text-xs text-gray-600 mt-1">Generación 100% matemática RNG (Sin IA)</p>
+            </div> <!-- Fin de w-5/12 -->
+
+            <!-- Right Main Panel: AI Engine Output -->
+            <div class="w-full lg:w-7/12 flex flex-col gap-6">
+
+                <!-- AI Output Report Elegant -->
+                <div id="ai-dashboard" class="card-float flex flex-col min-h-[500px] relative overflow-hidden">
+
+                    <!-- Idle State -->
+                    <div id="ai-idle-state"
+                        class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-white z-10 transition-opacity duration-500">
+
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm">
+                            <i class="fa-solid fa-chart-pie text-3xl text-slate-300"></i>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Esperando Información</h3>
+                        <p class="text-sm text-slate-500 max-w-sm leading-relaxed">
+                            Complete los parámetros de la izquierda para comenzar el análisis o consulte el panel de
+                            resultados diarios en vivo.
+                        </p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <div id="random-result" class="flex gap-2"></div>
-                        <button id="btn-random-mini"
-                            class="w-10 h-10 rounded-xl bg-gray-50 border border-gray-200 hover:border-brand-prime hover:text-brand-prime transition-colors flex items-center justify-center text-gray-500">
-                            <i class="fa-solid fa-shuffle"></i>
-                        </button>
+
+                    <!-- Active State Header -->
+                    <div class="p-6 sm:p-8 border-b border-slate-100 bg-white hidden flex-col items-start z-10 relative"
+                        id="ai-output-header">
+
+                        <div class="flex items-center gap-3 w-full justify-between mb-6">
+                            <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2 tracking-tight">
+                                Reporte de Probabilidad
+                            </h2>
+                            <div class="flex flex-col items-end">
+                                <span
+                                    class="text-[0.65rem] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100 uppercase tracking-wider mb-1">
+                                    <i class="fa-solid fa-check mr-1"></i> Completado
+                                </span>
+                                <span class="text-xs text-slate-500 font-medium tracking-wide">Modalidad: <span
+                                        id="ui-play-type" class="text-slate-800 font-bold">Sencilla</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Metadata V2 Display Elegant -->
+                        <div id="ai-metadata-bar"
+                            class="w-full flex flex-wrap gap-3 mb-6 hidden border-t border-slate-100 pt-4">
+                            <div class="text-xs flex items-center gap-2">
+                                <i class="fa-solid fa-dna text-slate-400"></i>
+                                <span class="text-slate-500 font-medium">Cuadrante Bioógico:</span>
+                                <span id="ui-meta-quadrant"
+                                    class="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">N/A</span>
+                            </div>
+                            <!-- Separator -->
+                            <div class="w-1 h-1 rounded-full bg-slate-300"></div>
+                            <div class="text-xs flex items-center gap-2">
+                                <i class="fa-solid fa-infinity text-slate-400"></i>
+                                <span class="text-slate-500 font-medium">Espejo Caliente:</span>
+                                <span id="ui-meta-mirror"
+                                    class="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">N/A</span>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Prediction Cards Container -->
+                        <div id="ai-dynamic-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Analysis Text Room Elegant -->
+                    <div class="p-6 sm:p-8 flex-grow flex flex-col hidden z-10 bg-slate-50/50" id="ai-output-body">
+                        <h3 class="text-xs font-bold text-slate-600 tracking-wider uppercase mb-3 flex items-center">
+                            <i class="fa-solid fa-align-left mr-2 text-slate-400"></i> Resumen de Razonamiento
+                        </h3>
+                        <div
+                            class="ai-reasoning-box p-5 rounded-xl text-sm leading-relaxed flex-grow relative overflow-auto custom-scrollbar">
+                            <div id="ai-reasoning-text" class="whitespace-pre-wrap text-slate-700">
+                                <!-- Typing text goes here -->
+                            </div>
+                            <span class="typing-cursor inline-block" id="ai-cursor"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -318,71 +315,65 @@
 
     </main>
 
-    <footer class="mt-auto border-t border-gray-200 bg-gray-50/90 backdrop-blur pb-6 pt-6 relative z-10 w-full">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-            <p class="text-xs text-gray-600 max-w-2xl leading-relaxed mb-3">
-                <strong class="text-gray-900">DISCLAIMER:</strong> Este software es una herramienta de análisis
-                estadístico y pronóstico.
-                No garantiza resultados económicos y está diseñado con fines de investigación algorítmica.
+    <footer class="mt-auto border-t border-slate-200 bg-white pb-6 pt-6 relative w-full">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-[0.65rem] text-slate-500 font-medium">
+                Herramienta de análisis probabilístico. No constituye consejo financiero.
             </p>
-            <div class="text-[0.65rem] text-gray-500 font-mono tracking-widest">
-                ASR_DEVS // BUILD 2.1 // 2026 &copy;
-                <script>document.write(new Date().getFullYear())</script>
+            <div class="text-[0.65rem] text-slate-400 font-semibold tracking-wider">
+                &copy; 2026 ASR_DEVOPS
             </div>
         </div>
     </footer>
 
-    <!-- Live Feed Modal Overlay -->
+    <!-- Live Feed Modal Overlay Elegant -->
     <div id="feed-modal-overlay"
-        class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center w-full h-full opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-white rounded-3xl w-[95%] max-w-5xl max-h-[85vh] flex flex-col shadow-2xl border border-gray-200 transform scale-95 transition-transform duration-300"
+        class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 flex items-center justify-center w-full h-full opacity-0 pointer-events-none transition-opacity duration-300">
+
+        <div class="card-float w-[95%] max-w-4xl max-h-[85vh] flex flex-col transform scale-95 transition-transform duration-300 bg-white"
             id="feed-modal-content">
+
             <!-- Modal Header -->
             <div
-                class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-3xl shadow-sm z-10">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 rounded-xl bg-brand-prime/10 flex items-center justify-center text-brand-prime shadow-inner">
-                        <i class="fa-solid fa-satellite-dish text-lg"></i>
+                class="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center bg-white rounded-t-[1.5rem] z-10">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                        <i class="fa-solid fa-satellite-dish"></i>
                     </div>
                     <div>
-                        <h2 class="text-gray-900 font-bold text-lg">Live Feed Hoy</h2>
-                        <p class="text-xs text-gray-600">Resultados concurrentes en tiempo real</p>
+                        <h2 class="text-slate-900 font-bold text-lg tracking-tight">Resultados en vivo</h2>
+                        <p class="text-xs text-slate-500 font-medium">Resultados actualizados en tiempo real de
+                            múltiples loterías.</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
                     <button id="btn-refresh-feed"
-                        class="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-brand-prime hover:bg-brand-prime/10 transition-colors">
-                        <i class="fa-solid fa-rotate-right"></i>
+                        class="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all border border-transparent">
+                        <i class="fa-solid fa-rotate-right text-sm"></i>
                     </button>
                     <button id="btn-close-feed-modal"
-                        class="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-500/10 transition-colors">
-                        <i class="fa-solid fa-xmark text-lg"></i>
+                        class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all border border-transparent">
+                        <i class="fa-solid fa-times text-sm"></i>
                     </button>
                 </div>
             </div>
             <!-- Modal Body (Data) -->
-            <div class="flex-grow overflow-y-auto p-6 custom-scrollbar bg-white rounded-b-3xl">
-                <!-- Data will populate as a 3-column grid on md+ -->
-                <div id="live-feed-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="col-span-1 md:col-span-3 p-12 flex items-center justify-center text-sm text-gray-400">
-                        <i class="fa-solid fa-spinner fa-spin mr-2"></i> Obteniedo resultados de todas las paginas...
+            <div class="flex-grow overflow-y-auto p-6 sm:p-8 custom-scrollbar bg-slate-50 rounded-b-[1.5rem]">
+                <div id="live-feed-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        class="col-span-full py-12 flex items-center justify-center text-sm text-slate-500 font-medium">
+                        <i class="fa-solid fa-circle-notch fa-spin mr-3"></i> Cargando resultados del día...
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scroll-to-Top FAB -->
-    <button id="btn-scroll-top"
-        class="fixed bottom-6 right-6 w-12 h-12 bg-white text-gray-600 rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 hover:text-brand-prime transition-all z-40 opacity-0 translate-y-10 pointer-events-none md:hidden focus:outline-none">
-        <i class="fa-solid fa-chevron-up"></i>
-    </button>
-
     <!-- Flatpickr JS & Spanish Locale -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
-    <script src="/static/js/script.js?v=3"></script>
+    <script src="/static/js/script.js?v=5"></script>
 </body>
 
 </html>

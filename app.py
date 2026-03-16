@@ -45,13 +45,49 @@ DREAMS_DICT = {
 # Ensure 00 remains 00
 DREAMS_DICT["ballena"] = "00"
 
-# Specific pulls mapping provided in the prompt
+# Specific pulls mapping provided in the prompt, extended for all 38 animals algorithmically
 PULLS_DICT = {
     "0": ["Oso", "Pescado", "Ballena"],
     "00": ["Delfín", "Caimán", "Iguana", "Pescado", "Perro"],
     "5": ["Tigre", "Gato", "Elefante", "Caballo", "Gallo", "Perico"],
-    "10": ["Cebra", "Ardilla", "Carnero", "Chivo", "Venado", "Mono", "Elefante"]
+    "10": ["Cebra", "Ardilla", "Carnero", "Chivo", "Venado", "Mono", "Elefante"],
+    "25": ["Gallo", "Toro", "Ciempiés", "Iguana", "Alacrán", "Perro"],
+    "33": ["Delfín", "Ballena", "Oso", "Burro", "Perico", "Mono", "Ratón"],
+    "36": ["Iguana", "Chivo", "Ratón", "Zorro", "Pescado"]
 }
+
+# Complete the rest of the 38 animals algorithmically to avoid empty pulls
+keys_list = list(ANIMALS.keys())
+for i, k in enumerate(keys_list):
+    if k not in PULLS_DICT:
+        # Pseudo-random but deterministic pulls based on indices (+3, +7, +11)
+        pull1 = ANIMALS[keys_list[(i + 3) % 38]]
+        pull2 = ANIMALS[keys_list[(i + 7) % 38]]
+        pull3 = ANIMALS[keys_list[(i + 11) % 38]]
+        PULLS_DICT[k] = [pull1, pull2, pull3]
+
+def calculate_enjaulados(todays_results, past_animals):
+    appeared = set()
+    if past_animals:
+        for pa in past_animals:
+            parts = pa.split(' - ')
+            if len(parts) == 2:
+                appeared.add(parts[1].lower())
+    
+    if todays_results:
+        for lot, results in todays_results.items():
+            for r in results:
+                appeared.add(r['animal'].split(' ', 1)[-1].lower())
+
+    enjaulados = []
+    for num, animal in ANIMALS.items():
+        if animal.lower() not in appeared:
+            enjaulados.append(f"{num} {animal}")
+    
+    random.seed(datetime.now().day) # simple daily deterministic shuffle
+    random.shuffle(enjaulados)
+    return enjaulados[:5] if len(enjaulados) > 5 else enjaulados
+
 
 @app.route('/')
 def index():
@@ -97,13 +133,30 @@ def pulls(number):
         
     return jsonify({"number": number, "animal": ANIMALS.get(number), "pulls": pulls})
 
+import re
+STOP_WORDS = {"yo", "soñe", "soñé", "con", "un", "una", "el", "la", "los", "las", "que", "y", "de", "en", "mi", "me"}
+
 @app.route('/api/dreams')
 def dreams():
-    keyword = request.args.get('q', '').lower()
+    keyword_phrase = request.args.get('q', '').lower()
+    
+    # NLP Tokenization and stopword removal
+    words = re.findall(r'\b\w+\b', keyword_phrase)
+    clean_words = [w for w in words if w not in STOP_WORDS]
+    
     matches = []
-    for dream, number in DREAMS_DICT.items():
-        if keyword in dream:
-            matches.append({"dream": dream.capitalize(), "number": number})
+    if not clean_words:
+        clean_words = [keyword_phrase]
+
+    for word in clean_words:
+        # Stemming plural
+        stemmed = word[:-1] if word.endswith('s') and len(word) > 3 else word
+            
+        for dream, number in DREAMS_DICT.items():
+            if stemmed in dream or word in dream:
+                entry = {"dream": dream.capitalize(), "number": number}
+                if entry not in matches:
+                    matches.append(entry)
             
     return jsonify(matches)
 
@@ -143,7 +196,13 @@ def advanced_prediction():
     # 1. Fetch today's context so the AI knows reality
     todays_results = scraper.get_today_results()
     
-    # 2. Call the AI Service
+    # 2. Calculate "Enjaulados" mathematically
+    enjaulados = calculate_enjaulados(todays_results, past_animals)
+    
+    # 3. Scrape Internet Consensus
+    internet_consensus = scraper.scrape_internet_consensus()
+    
+    # 4. Call the AI Service
     ai_response = ai_service.get_ai_prediction(
         analyst_name=analyst_name,
         hot_numbers=hot_numbers, 
@@ -151,7 +210,9 @@ def advanced_prediction():
         play_type=play_type,
         target_lottery=target_lottery,
         dream_keyword=dream, 
-        todays_results=todays_results
+        todays_results=todays_results,
+        enjaulados=enjaulados,
+        internet_consensus=internet_consensus
     )
     
     # 3. Save to knowledge base (JSONL)
